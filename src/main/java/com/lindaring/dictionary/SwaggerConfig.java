@@ -25,6 +25,7 @@ public class SwaggerConfig {
 
     private Predicate<String> postPaths() {
         return or(
+            regex("/simple-dictionary/v1/word.*")
         );
     }
 
