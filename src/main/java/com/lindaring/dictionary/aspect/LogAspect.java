@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -11,6 +12,12 @@ import org.springframework.stereotype.Component;
 public class LogAspect {
 
     private static final Logger log = Logger.getLogger(LogAspect.class);
+
+    @Value("${simple.dictionary.log.method.enabled}")
+    private boolean logMethodEnabled;
+
+    @Value("${simple.dictionary.log.executionTime.enabled}")
+    private boolean logExecutionTimeEnabled;
 
     @Pointcut("@annotation(com.lindaring.dictionary.annotation.LogExecutionTime)")
     public void LogExecutionTime() {
@@ -22,6 +29,9 @@ public class LogAspect {
 
     @Around("LogExecutionTime()")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        if (!logExecutionTimeEnabled)
+            return joinPoint.proceed();
+
         long start = System.currentTimeMillis();
         String methodName = joinPoint.getSignature().getName();
 
@@ -35,6 +45,9 @@ public class LogAspect {
 
     @Before("logMethod()")
     public void logMethodEntry(JoinPoint joinPoint) {
+        if (!logMethodEnabled)
+            return;
+
         String methodName = joinPoint.getSignature().getName();
 
         String args = getArgs(joinPoint.getArgs());
@@ -44,13 +57,19 @@ public class LogAspect {
 
     @AfterReturning(value = "logMethod()", returning = "response")
     public void logMethodSuccess(JoinPoint joinPoint, Object response) {
+        if (!logMethodEnabled)
+            return;
+
         String methodName = joinPoint.getSignature().getName();
 
         log.info(String.format("Method '%s': returned '%s'", methodName, response));
     }
 
     @AfterThrowing(value = "logMethod()", throwing = "exception")
-    public void logMethodSuccess(JoinPoint joinPoint, Throwable exception) {
+    public void logMethodFail(JoinPoint joinPoint, Throwable exception) {
+        if (!logMethodEnabled)
+            return;
+
         String methodName = joinPoint.getSignature().getName();
 
         log.error(String.format("Method '%s': throw '%s'", methodName, exception.getMessage()));
