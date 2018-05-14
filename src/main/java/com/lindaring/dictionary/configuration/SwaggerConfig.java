@@ -1,4 +1,4 @@
-package com.lindaring.dictionary;
+package com.lindaring.dictionary.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
