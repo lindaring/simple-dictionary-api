@@ -2,22 +2,34 @@ package com.lindaring.dictionary.controller;
 
 import com.lindaring.dictionary.annotation.LogExecutionTime;
 import com.lindaring.dictionary.annotation.LogMethod;
+import com.lindaring.dictionary.client.DictionaryClient;
+import com.lindaring.dictionary.client.model.meaning.Meaning;
 import com.lindaring.dictionary.exception.NoImplementationException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value="/simple-dictionary/v1/word")
 public class WordController {
 
+    @Autowired
+    private DictionaryClient dictionaryClient;
+
     @LogMethod
     @LogExecutionTime
     @RequestMapping(value="/{word}", method=RequestMethod.GET)
     @ApiOperation(notes="Get word definition", value="Get word definition")
     public int getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) throws InterruptedException {
-        Thread.sleep(2000);
+
+        Meaning meanings = dictionaryClient.getMeaning("abd32269", "02c6108e3e428c200357c398a6d0359c");
+
         return 100;
     }
 

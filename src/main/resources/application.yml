@@ -8,3 +8,14 @@ simple:
         enabled: true
       executionTime:
         enabled: true
+
+feign:
+  hystrix:
+    enabled: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
