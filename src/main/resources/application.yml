@@ -3,11 +3,18 @@ server:
 
 simple:
   dictionary:
+    language: en
+    api:
+      id: abd32269
+      key: 02c6108e3e428c200357c398a6d0359c
     log:
       method:
         enabled: true
       executionTime:
         enabled: true
+    clients:
+      dictionary:
+        url: https://od-api.oxforddictionaries.com:443/api/v1
 
 feign:
   hystrix:
