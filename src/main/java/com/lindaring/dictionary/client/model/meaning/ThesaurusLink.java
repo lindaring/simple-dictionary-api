@@ -19,11 +19,31 @@ import java.util.Map;
 public class ThesaurusLink {
 
     @JsonProperty("entry_id")
-    public String entryId;
+    private String entryId;
     @JsonProperty("sense_id")
-    public String senseId;
+    private String senseId;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("entry_id")
+    public String getEntryId() {
+        return entryId;
+    }
+
+    @JsonProperty("entry_id")
+    public void setEntryId(String entryId) {
+        this.entryId = entryId;
+    }
+
+    @JsonProperty("sense_id")
+    public String getSenseId() {
+        return senseId;
+    }
+
+    @JsonProperty("sense_id")
+    public void setSenseId(String senseId) {
+        this.senseId = senseId;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

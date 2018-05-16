@@ -26,23 +26,103 @@ import java.util.Map;
 public class Example {
 
     @JsonProperty("definitions")
-    public List<String> definitions = null;
+    private List<String> definitions = null;
     @JsonProperty("domains")
-    public List<String> domains = null;
+    private List<String> domains = null;
     @JsonProperty("notes")
-    public List<Note_> notes = null;
+    private List<Note_> notes = null;
     @JsonProperty("regions")
-    public List<String> regions = null;
+    private List<String> regions = null;
     @JsonProperty("registers")
-    public List<String> registers = null;
+    private List<String> registers = null;
     @JsonProperty("senseIds")
-    public List<String> senseIds = null;
+    private List<String> senseIds = null;
     @JsonProperty("text")
-    public String text;
+    private String text;
     @JsonProperty("translations")
-    public List<Translation> translations = null;
+    private List<Translation> translations = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("definitions")
+    public List<String> getDefinitions() {
+        return definitions;
+    }
+
+    @JsonProperty("definitions")
+    public void setDefinitions(List<String> definitions) {
+        this.definitions = definitions;
+    }
+
+    @JsonProperty("domains")
+    public List<String> getDomains() {
+        return domains;
+    }
+
+    @JsonProperty("domains")
+    public void setDomains(List<String> domains) {
+        this.domains = domains;
+    }
+
+    @JsonProperty("notes")
+    public List<Note_> getNotes() {
+        return notes;
+    }
+
+    @JsonProperty("notes")
+    public void setNotes(List<Note_> notes) {
+        this.notes = notes;
+    }
+
+    @JsonProperty("regions")
+    public List<String> getRegions() {
+        return regions;
+    }
+
+    @JsonProperty("regions")
+    public void setRegions(List<String> regions) {
+        this.regions = regions;
+    }
+
+    @JsonProperty("registers")
+    public List<String> getRegisters() {
+        return registers;
+    }
+
+    @JsonProperty("registers")
+    public void setRegisters(List<String> registers) {
+        this.registers = registers;
+    }
+
+    @JsonProperty("senseIds")
+    public List<String> getSenseIds() {
+        return senseIds;
+    }
+
+    @JsonProperty("senseIds")
+    public void setSenseIds(List<String> senseIds) {
+        this.senseIds = senseIds;
+    }
+
+    @JsonProperty("text")
+    public String getText() {
+        return text;
+    }
+
+    @JsonProperty("text")
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    @JsonProperty("translations")
+    public List<Translation> getTranslations() {
+        return translations;
+    }
+
+    @JsonProperty("translations")
+    public void setTranslations(List<Translation> translations) {
+        this.translations = translations;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

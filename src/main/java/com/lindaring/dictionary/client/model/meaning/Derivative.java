@@ -24,19 +24,79 @@ import java.util.Map;
 public class Derivative {
 
     @JsonProperty("domains")
-    public List<String> domains = null;
+    private List<String> domains = null;
     @JsonProperty("id")
-    public String id;
+    private String id;
     @JsonProperty("language")
-    public String language;
+    private String language;
     @JsonProperty("regions")
-    public List<String> regions = null;
+    private List<String> regions = null;
     @JsonProperty("registers")
-    public List<String> registers = null;
+    private List<String> registers = null;
     @JsonProperty("text")
-    public String text;
+    private String text;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("domains")
+    public List<String> getDomains() {
+        return domains;
+    }
+
+    @JsonProperty("domains")
+    public void setDomains(List<String> domains) {
+        this.domains = domains;
+    }
+
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @JsonProperty("language")
+    public String getLanguage() {
+        return language;
+    }
+
+    @JsonProperty("language")
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    @JsonProperty("regions")
+    public List<String> getRegions() {
+        return regions;
+    }
+
+    @JsonProperty("regions")
+    public void setRegions(List<String> regions) {
+        this.regions = regions;
+    }
+
+    @JsonProperty("registers")
+    public List<String> getRegisters() {
+        return registers;
+    }
+
+    @JsonProperty("registers")
+    public void setRegisters(List<String> registers) {
+        this.registers = registers;
+    }
+
+    @JsonProperty("text")
+    public String getText() {
+        return text;
+    }
+
+    @JsonProperty("text")
+    public void setText(String text) {
+        this.text = text;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

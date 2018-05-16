@@ -24,19 +24,79 @@ import java.util.Map;
 public class Result {
 
     @JsonProperty("id")
-    public String id;
+    private String id;
     @JsonProperty("language")
-    public String language;
+    private String language;
     @JsonProperty("lexicalEntries")
-    public List<LexicalEntry> lexicalEntries = null;
+    private List<LexicalEntry> lexicalEntries = null;
     @JsonProperty("pronunciations")
-    public List<Pronunciation___> pronunciations = null;
+    private List<Pronunciation___> pronunciations = null;
     @JsonProperty("type")
-    public String type;
+    private String type;
     @JsonProperty("word")
-    public String word;
+    private String word;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @JsonProperty("language")
+    public String getLanguage() {
+        return language;
+    }
+
+    @JsonProperty("language")
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    @JsonProperty("lexicalEntries")
+    public List<LexicalEntry> getLexicalEntries() {
+        return lexicalEntries;
+    }
+
+    @JsonProperty("lexicalEntries")
+    public void setLexicalEntries(List<LexicalEntry> lexicalEntries) {
+        this.lexicalEntries = lexicalEntries;
+    }
+
+    @JsonProperty("pronunciations")
+    public List<Pronunciation___> getPronunciations() {
+        return pronunciations;
+    }
+
+    @JsonProperty("pronunciations")
+    public void setPronunciations(List<Pronunciation___> pronunciations) {
+        this.pronunciations = pronunciations;
+    }
+
+    @JsonProperty("type")
+    public String getType() {
+        return type;
+    }
+
+    @JsonProperty("type")
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @JsonProperty("word")
+    public String getWord() {
+        return word;
+    }
+
+    @JsonProperty("word")
+    public void setWord(String word) {
+        this.word = word;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

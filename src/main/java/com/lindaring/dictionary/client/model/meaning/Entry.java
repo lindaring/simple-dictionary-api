@@ -25,21 +25,91 @@ import java.util.Map;
 public class Entry {
 
     @JsonProperty("etymologies")
-    public List<String> etymologies = null;
+    private List<String> etymologies = null;
     @JsonProperty("grammaticalFeatures")
-    public List<GrammaticalFeature> grammaticalFeatures = null;
+    private List<GrammaticalFeature> grammaticalFeatures = null;
     @JsonProperty("homographNumber")
-    public String homographNumber;
+    private String homographNumber;
     @JsonProperty("notes")
-    public List<Note> notes = null;
+    private List<Note> notes = null;
     @JsonProperty("pronunciations")
-    public List<Pronunciation> pronunciations = null;
+    private List<Pronunciation> pronunciations = null;
     @JsonProperty("senses")
-    public List<Sense> senses = null;
+    private List<Sense> senses = null;
     @JsonProperty("variantForms")
-    public List<VariantForm_> variantForms = null;
+    private List<VariantForm_> variantForms = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("etymologies")
+    public List<String> getEtymologies() {
+        return etymologies;
+    }
+
+    @JsonProperty("etymologies")
+    public void setEtymologies(List<String> etymologies) {
+        this.etymologies = etymologies;
+    }
+
+    @JsonProperty("grammaticalFeatures")
+    public List<GrammaticalFeature> getGrammaticalFeatures() {
+        return grammaticalFeatures;
+    }
+
+    @JsonProperty("grammaticalFeatures")
+    public void setGrammaticalFeatures(List<GrammaticalFeature> grammaticalFeatures) {
+        this.grammaticalFeatures = grammaticalFeatures;
+    }
+
+    @JsonProperty("homographNumber")
+    public String getHomographNumber() {
+        return homographNumber;
+    }
+
+    @JsonProperty("homographNumber")
+    public void setHomographNumber(String homographNumber) {
+        this.homographNumber = homographNumber;
+    }
+
+    @JsonProperty("notes")
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    @JsonProperty("notes")
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
+    @JsonProperty("pronunciations")
+    public List<Pronunciation> getPronunciations() {
+        return pronunciations;
+    }
+
+    @JsonProperty("pronunciations")
+    public void setPronunciations(List<Pronunciation> pronunciations) {
+        this.pronunciations = pronunciations;
+    }
+
+    @JsonProperty("senses")
+    public List<Sense> getSenses() {
+        return senses;
+    }
+
+    @JsonProperty("senses")
+    public void setSenses(List<Sense> senses) {
+        this.senses = senses;
+    }
+
+    @JsonProperty("variantForms")
+    public List<VariantForm_> getVariantForms() {
+        return variantForms;
+    }
+
+    @JsonProperty("variantForms")
+    public void setVariantForms(List<VariantForm_> variantForms) {
+        this.variantForms = variantForms;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

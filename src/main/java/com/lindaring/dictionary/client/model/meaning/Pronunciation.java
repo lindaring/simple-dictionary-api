@@ -23,17 +23,67 @@ import java.util.Map;
 public class Pronunciation {
 
     @JsonProperty("audioFile")
-    public String audioFile;
+    private String audioFile;
     @JsonProperty("dialects")
-    public List<String> dialects = null;
+    private List<String> dialects = null;
     @JsonProperty("phoneticNotation")
-    public String phoneticNotation;
+    private String phoneticNotation;
     @JsonProperty("phoneticSpelling")
-    public String phoneticSpelling;
+    private String phoneticSpelling;
     @JsonProperty("regions")
-    public List<String> regions = null;
+    private List<String> regions = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("audioFile")
+    public String getAudioFile() {
+        return audioFile;
+    }
+
+    @JsonProperty("audioFile")
+    public void setAudioFile(String audioFile) {
+        this.audioFile = audioFile;
+    }
+
+    @JsonProperty("dialects")
+    public List<String> getDialects() {
+        return dialects;
+    }
+
+    @JsonProperty("dialects")
+    public void setDialects(List<String> dialects) {
+        this.dialects = dialects;
+    }
+
+    @JsonProperty("phoneticNotation")
+    public String getPhoneticNotation() {
+        return phoneticNotation;
+    }
+
+    @JsonProperty("phoneticNotation")
+    public void setPhoneticNotation(String phoneticNotation) {
+        this.phoneticNotation = phoneticNotation;
+    }
+
+    @JsonProperty("phoneticSpelling")
+    public String getPhoneticSpelling() {
+        return phoneticSpelling;
+    }
+
+    @JsonProperty("phoneticSpelling")
+    public void setPhoneticSpelling(String phoneticSpelling) {
+        this.phoneticSpelling = phoneticSpelling;
+    }
+
+    @JsonProperty("regions")
+    public List<String> getRegions() {
+        return regions;
+    }
+
+    @JsonProperty("regions")
+    public void setRegions(List<String> regions) {
+        this.regions = regions;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

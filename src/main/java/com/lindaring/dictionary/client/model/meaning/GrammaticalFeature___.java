@@ -19,11 +19,31 @@ import java.util.Map;
 public class GrammaticalFeature___ {
 
     @JsonProperty("text")
-    public String text;
+    private String text;
     @JsonProperty("type")
-    public String type;
+    private String type;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("text")
+    public String getText() {
+        return text;
+    }
+
+    @JsonProperty("text")
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    @JsonProperty("type")
+    public String getType() {
+        return type;
+    }
+
+    @JsonProperty("type")
+    public void setType(String type) {
+        this.type = type;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

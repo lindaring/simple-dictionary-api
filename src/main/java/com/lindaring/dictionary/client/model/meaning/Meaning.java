@@ -20,11 +20,31 @@ import java.util.Map;
 public class Meaning {
 
     @JsonProperty("metadata")
-    public Metadata metadata;
+    private Metadata metadata;
     @JsonProperty("results")
-    public List<Result> results = null;
+    private List<Result> results = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("metadata")
+    public Metadata getMetadata() {
+        return metadata;
+    }
+
+    @JsonProperty("metadata")
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
+    }
+
+    @JsonProperty("results")
+    public List<Result> getResults() {
+        return results;
+    }
+
+    @JsonProperty("results")
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {

@@ -31,7 +31,7 @@ public class DictionaryClientService {
      */
     @LogMethod
     public Meaning getMeaning(String lang, String word) {
-        return client.getMeaning(apiId, apiKey, lang, word);
+        return client.getMeaning(apiId, apiKey, lang.toLowerCase(), word.toLowerCase());
     }
 
     @FeignClient(
