@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class Word {
-    private String word;
-    private List<PartsOfSpeech> partsOfSpeech;
+@AllArgsConstructor
+@NoArgsConstructor
+public class Definitions {
+    private List<String> definitions;
 }

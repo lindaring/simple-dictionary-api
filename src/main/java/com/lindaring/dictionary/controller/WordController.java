@@ -7,6 +7,7 @@ import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.service.DictionaryService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,10 @@ public class WordController {
 
     @LogMethod
     @LogExecutionTime
-    @RequestMapping(value="/{word}", method=RequestMethod.GET)
+    @RequestMapping(value="/{word}/language/{lang}", method=RequestMethod.GET)
     @ApiOperation(notes="Get word definition", value="Get word definition")
-    public ResponseEntity<Word> getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) {
-
-        Word meaning = dictionaryService.getWordMeaning(word);
+    public ResponseEntity<Word> getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) throws NotFoundException {
+        Word meaning = dictionaryService.getWord(word);
 
         return new ResponseEntity<>(meaning, HttpStatus.OK);
     }

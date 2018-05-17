@@ -3,7 +3,6 @@ server:
 
 simple:
   dictionary:
-    language: en
     api:
       id: abd32269
       key: 02c6108e3e428c200357c398a6d0359c

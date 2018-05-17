@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Definition {
-    private String partOfSpeech;
-    private List<String> definitions;
+public class PartsOfSpeech {
+    private String name;
+    private Definitions definitions;
 }
