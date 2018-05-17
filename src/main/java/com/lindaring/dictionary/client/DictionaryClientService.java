@@ -2,8 +2,8 @@ package com.lindaring.dictionary.client;
 
 import com.lindaring.dictionary.annotation.LogMethod;
 import com.lindaring.dictionary.client.model.meaning.Meaning;
+import com.lindaring.dictionary.properties.OxfordApiProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Service
 public class DictionaryClientService {
 
-    @Value("${simple.dictionary.api.id}")
-    private String apiId;
-
-    @Value("${simple.dictionary.api.key}")
-    private String apiKey;
+    @Autowired
+    private OxfordApiProperties oxfordApi;
 
     @Autowired
     private DictionaryClient client;
@@ -31,14 +28,14 @@ public class DictionaryClientService {
      */
     @LogMethod
     public Meaning getMeaning(String lang, String word) {
-        return client.getMeaning(apiId, apiKey, lang.toLowerCase(), word.toLowerCase());
+        return client.getMeaning(oxfordApi.getId(), oxfordApi.getKey(), lang.toLowerCase(), word.toLowerCase());
     }
 
     @FeignClient(
-            name = "DictionaryClient",
-            url = "${simple.dictionary.clients.dictionary.url}"
+        name = "DictionaryClient",
+        url = "${simple.dictionary.clients.dictionary.url}"
     )
-    public interface DictionaryClient {
+    private interface DictionaryClient {
 
         @RequestMapping(method = RequestMethod.GET, value = "/entries/{lang}/{word}")
         Meaning getMeaning(@RequestHeader("app_id") String appId,

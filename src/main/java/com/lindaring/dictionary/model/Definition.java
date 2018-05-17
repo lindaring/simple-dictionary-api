@@ -10,6 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class Definition {
-    private String partsOfSpeech;
+    private String partOfSpeech;
     private List<String> definitions;
 }
