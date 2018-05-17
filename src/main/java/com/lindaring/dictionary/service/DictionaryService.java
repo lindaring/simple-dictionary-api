@@ -11,6 +11,7 @@ import com.lindaring.dictionary.model.Definitions;
 import com.lindaring.dictionary.model.PartsOfSpeech;
 import com.lindaring.dictionary.model.Word;
 import javassist.NotFoundException;
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.apache.commons.lang.StringUtils.isNotEmpty;
+
 @Service
 public class DictionaryService {
 
     @Autowired
     private DictionaryClientService dictionaryClientService;
+
+    @Autowired
+    private CacheService cacheService;
 
     /**
      * Get the meaning of the provided word.
@@ -31,11 +37,14 @@ public class DictionaryService {
      */
     @LogMethod
     public Word getWord(String word) throws NotFoundException {
-        //Todo - get word from cache
+        Optional<Word> optionalResponse = cacheService.get(word.toLowerCase());
 
-        //Todo - if word is present from cache return word otherwise get from service
+        if (optionalResponse.isPresent())
+            return optionalResponse.get();
 
-        return getWordFromService(word);
+        Word response = getWordFromService(word);
+        cacheService.cache(response.getWord(), response);
+        return response;
     }
 
     @LogMethod
@@ -43,9 +52,9 @@ public class DictionaryService {
         Meaning meaning = dictionaryClientService.getMeaning(Languages.getId(Languages.ENGLISH), word);
         Optional<Result> result = meaning.getResults().stream().findFirst();
 
-        if (result.isPresent()) {
+        if (result.isPresent())
             return new Word(word.toLowerCase(), getPartsOfSpeech(result.get().getLexicalEntries()));
-        }
+
         throw new NotFoundException("Word not found");
     }
 

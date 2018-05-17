@@ -3,6 +3,7 @@ package com.lindaring.dictionary.controller;
 import com.lindaring.dictionary.annotation.LogExecutionTime;
 import com.lindaring.dictionary.annotation.LogMethod;
 import com.lindaring.dictionary.exception.NoImplementationException;
+import com.lindaring.dictionary.exception.TechnicalException;
 import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.service.DictionaryService;
 import io.swagger.annotations.ApiOperation;
@@ -29,10 +30,15 @@ public class WordController {
     @LogExecutionTime
     @RequestMapping(value="/{word}/language/{lang}", method=RequestMethod.GET)
     @ApiOperation(notes="Get word definition", value="Get word definition")
-    public ResponseEntity<Word> getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) throws NotFoundException {
-        Word meaning = dictionaryService.getWord(word);
-
-        return new ResponseEntity<>(meaning, HttpStatus.OK);
+    public ResponseEntity<Word> getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) throws NotFoundException, TechnicalException {
+        try {
+            Word meaning = dictionaryService.getWord(word);
+            return new ResponseEntity<>(meaning, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(new Word(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new TechnicalException();
+        }
     }
 
     @LogMethod

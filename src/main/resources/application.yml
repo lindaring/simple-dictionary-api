@@ -8,7 +8,7 @@ simple:
       key: 02c6108e3e428c200357c398a6d0359c
     log:
       method:
-        enabled: true
+        enabled: false
       executionTime:
         enabled: true
     clients:
@@ -25,3 +25,6 @@ hystrix:
       execution:
         isolation:
           strategy: SEMAPHORE
+
+caching:
+  word: WORD_DEFINITION_CACHE
