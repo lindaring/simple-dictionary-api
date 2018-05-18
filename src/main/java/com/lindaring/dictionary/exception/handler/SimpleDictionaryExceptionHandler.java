@@ -1,5 +1,6 @@
 package com.lindaring.dictionary.exception.handler;
 
+import com.lindaring.dictionary.exception.TechnicalException;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,12 +15,24 @@ public class SimpleDictionaryExceptionHandler extends ResponseEntityExceptionHan
 
     @ExceptionHandler(value = { WordNotFoundException.class })
     protected ResponseEntity<Object> handleNotFound(WordNotFoundException e, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
         ExceptionHandlerResponse bodyOfResponse = ExceptionHandlerResponse.builder()
-                .status(HttpStatus.NOT_FOUND.value())
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .status(status.value())
+                .error(status.getReasonPhrase())
                 .message(e.getMessage())
                 .exception(e.getClass()).build();
-        return handleExceptionInternal(e, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+        return handleExceptionInternal(e, bodyOfResponse, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(value = { TechnicalException.class })
+    protected ResponseEntity<Object> handleTechnical(TechnicalException e, WebRequest request) {
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        ExceptionHandlerResponse bodyOfResponse = ExceptionHandlerResponse.builder()
+                .status(status.value())
+                .error(status.getReasonPhrase())
+                .message(e.getMessage())
+                .exception(e.getClass()).build();
+        return handleExceptionInternal(e, bodyOfResponse, new HttpHeaders(), status, request);
     }
 
 }
