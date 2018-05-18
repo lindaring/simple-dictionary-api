@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.lindaring.dictionary.configuration.WordCacheConfig.WORD_DEFINITION_CACHE;
+
 @Service
 public class CacheService {
-
-    private final String WORD_DEFINITION_CACHE = "WORD_DEFINITION_CACHE";
 
     @CachePut(value = WORD_DEFINITION_CACHE, key = "#key")
     public Word cache(String key, Word value) {

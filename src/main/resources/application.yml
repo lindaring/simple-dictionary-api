@@ -25,6 +25,3 @@ hystrix:
       execution:
         isolation:
           strategy: SEMAPHORE
-
-caching:
-  word: WORD_DEFINITION_CACHE
