@@ -4,11 +4,11 @@ import com.lindaring.dictionary.annotation.LogExecutionTime;
 import com.lindaring.dictionary.annotation.LogMethod;
 import com.lindaring.dictionary.exception.NoImplementationException;
 import com.lindaring.dictionary.exception.TechnicalException;
+import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.service.DictionaryService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +28,18 @@ public class WordController {
 
     @LogMethod
     @LogExecutionTime
-    @RequestMapping(value="/{word}/language/{lang}", method=RequestMethod.GET)
+    @RequestMapping(value="/{word}", method=RequestMethod.GET)
     @ApiOperation(notes="Get word definition", value="Get word definition")
-    public ResponseEntity<Word> getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) throws NotFoundException, TechnicalException {
+    public ResponseEntity<Word> getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) throws WordNotFoundException, TechnicalException {
+        // 1 - handle not found word
+        // 2 - investigate 'media'
         try {
             Word meaning = dictionaryService.getWord(word);
             return new ResponseEntity<>(meaning, HttpStatus.OK);
-        } catch (NotFoundException e) {
-            return new ResponseEntity<>(new Word(), HttpStatus.NOT_FOUND);
+
+        } catch (WordNotFoundException e) {
+            throw e;
+
         } catch (Exception e) {
             throw new TechnicalException();
         }

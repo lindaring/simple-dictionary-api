@@ -1,28 +1,32 @@
 package com.lindaring.dictionary.service;
 
 import com.lindaring.dictionary.annotation.LogMethod;
+import com.lindaring.dictionary.aspect.LogAspect;
 import com.lindaring.dictionary.client.DictionaryClientService;
 import com.lindaring.dictionary.client.model.meaning.LexicalEntry;
 import com.lindaring.dictionary.client.model.meaning.Meaning;
 import com.lindaring.dictionary.client.model.meaning.Result;
 import com.lindaring.dictionary.client.model.meaning.Sense;
 import com.lindaring.dictionary.enumerator.Languages;
+import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Definitions;
 import com.lindaring.dictionary.model.PartsOfSpeech;
 import com.lindaring.dictionary.model.Word;
-import javassist.NotFoundException;
-import org.apache.commons.lang.ArrayUtils;
+import com.lindaring.dictionary.properties.MessageProperties;
+import feign.FeignException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.apache.commons.lang.StringUtils.isNotEmpty;
-
 @Service
 public class DictionaryService {
+
+    private static final Logger log = Logger.getLogger(LogAspect.class);
 
     @Autowired
     private DictionaryClientService dictionaryClientService;
@@ -30,32 +34,43 @@ public class DictionaryService {
     @Autowired
     private CacheService cacheService;
 
+    @Autowired
+    private MessageProperties messages;
+
     /**
      * Get the meaning of the provided word.
      * @param word the word.
      * @return the meaning.
      */
     @LogMethod
-    public Word getWord(String word) throws NotFoundException {
+    public Word getWord(String word) throws WordNotFoundException {
         Optional<Word> optionalResponse = cacheService.get(word.toLowerCase());
 
         if (optionalResponse.isPresent())
             return optionalResponse.get();
 
-        Word response = getWordFromService(word);
-        cacheService.cache(response.getWord(), response);
-        return response;
+        try {
+            Word response = getWordFromService(word);
+            cacheService.cache(response.getWord(), response);
+            return response;
+
+        } catch (FeignException e) {
+            if (e.status() == HttpStatus.NOT_FOUND.value())
+                throw new WordNotFoundException(messages.getWordNotFound());
+
+            throw e;
+        }
     }
 
     @LogMethod
-    private Word getWordFromService(String word) throws NotFoundException {
+    private Word getWordFromService(String word) throws WordNotFoundException {
         Meaning meaning = dictionaryClientService.getMeaning(Languages.getId(Languages.ENGLISH), word);
         Optional<Result> result = meaning.getResults().stream().findFirst();
 
         if (result.isPresent())
             return new Word(word.toLowerCase(), getPartsOfSpeech(result.get().getLexicalEntries()));
 
-        throw new NotFoundException("Word not found");
+        throw new WordNotFoundException(messages.getWordNotFound());
     }
 
     @LogMethod
