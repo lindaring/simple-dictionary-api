@@ -13,6 +13,7 @@ import com.lindaring.dictionary.model.Definitions;
 import com.lindaring.dictionary.model.PartsOfSpeech;
 import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.properties.MessageProperties;
+import com.lindaring.dictionary.utils.SimpleUtils;
 import feign.FeignException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class DictionaryService {
@@ -87,7 +89,8 @@ public class DictionaryService {
     @LogMethod
     private Definitions getDefinitions(List<Sense> popMeaning) {
         List<String> list = new ArrayList<>();
-        popMeaning.forEach(x -> list.addAll(x.getDefinitions()));
+        popMeaning.forEach(x -> SimpleUtils.addAllNotNull(list, x.getDefinitions()));
         return new Definitions(list);
     }
+
 }

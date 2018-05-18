@@ -60,7 +60,7 @@ public class LogAspect {
 
     @AfterReturning(value = "logMethod()", returning = "response")
     public void logMethodSuccess(JoinPoint joinPoint, Object response) {
-        if (!logProperties.getExecutionTime().isEnabled())
+        if (!logProperties.getMethod().isEnabled())
             return;
 
         String methodName = joinPoint.getSignature().getName();
