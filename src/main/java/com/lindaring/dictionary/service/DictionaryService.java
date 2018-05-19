@@ -58,7 +58,7 @@ public class DictionaryService {
 
         } catch (FeignException e) {
             if (e.status() == HttpStatus.NOT_FOUND.value())
-                throw new WordNotFoundException(messages.getWordNotFound());
+                throw new WordNotFoundException(messages.getWord().getNotFound());
 
             throw e;
         }
@@ -72,7 +72,7 @@ public class DictionaryService {
         if (result.isPresent())
             return new Word(word.toLowerCase(), getPartsOfSpeech(result.get().getLexicalEntries()));
 
-        throw new WordNotFoundException(messages.getWordNotFound());
+        throw new WordNotFoundException(messages.getWord().getNotFound());
     }
 
     @LogMethod

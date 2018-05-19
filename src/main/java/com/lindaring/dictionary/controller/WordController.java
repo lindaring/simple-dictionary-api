@@ -31,8 +31,6 @@ public class WordController {
     @RequestMapping(value="/{word}", method=RequestMethod.GET)
     @ApiOperation(notes="Get word definition", value="Get word definition")
     public ResponseEntity<Word> getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) throws WordNotFoundException, TechnicalException {
-        // 1 - handle not found word
-        // 2 - investigate 'media'
         try {
             Word meaning = dictionaryService.getWord(word);
             return new ResponseEntity<>(meaning, HttpStatus.OK);

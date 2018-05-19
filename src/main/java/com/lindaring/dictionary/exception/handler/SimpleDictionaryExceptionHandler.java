@@ -1,5 +1,6 @@
 package com.lindaring.dictionary.exception.handler;
 
+import com.lindaring.dictionary.exception.CacheException;
 import com.lindaring.dictionary.exception.TechnicalException;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -13,8 +14,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class SimpleDictionaryExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { WordNotFoundException.class })
-    protected ResponseEntity<Object> handleNotFound(WordNotFoundException e, WebRequest request) {
+    @ExceptionHandler(value = { WordNotFoundException.class, CacheException.class })
+    protected ResponseEntity<Object> handleNotFound(Exception e, WebRequest request) {
         HttpStatus status = HttpStatus.NOT_FOUND;
         ExceptionHandlerResponse bodyOfResponse = ExceptionHandlerResponse.builder()
                 .status(status.value())

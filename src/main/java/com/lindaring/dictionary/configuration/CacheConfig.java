@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableCaching
-public class WordCacheConfig {
+public class CacheConfig {
 
     public static final String WORD_DEFINITION_CACHE = "WORD_DEFINITION_CACHE";
 

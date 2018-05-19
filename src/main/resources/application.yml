@@ -15,7 +15,10 @@ simple:
       dictionary:
         url: https://od-api.oxforddictionaries.com:443/api/v1
     messages:
-      wordNotFound: Ouch...Sorry, word not found.
+      word:
+        notFound: Eish...Askies, word not found.
+      cache:
+        keysNotFound: Eish...Askies, cache keys not found.
 
 feign:
   hystrix:
