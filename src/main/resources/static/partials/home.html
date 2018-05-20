@@ -1,8 +1,15 @@
-<div ng-include="'inc/header.html'"></div>
-<div id="middle-wrap">
-    <input type="text" id="txtWord" placeholder="Search for word" />
-    <br />
-    <button>Search</button>
-    <br />
-    <textarea id="txtDefinition"></textarea>
+<div>
+    <div ng-include="'inc/header.html'"></div>
+    <div id="middle-wrap">
+        <input type="text" ng-model="search.word" id="txtWord" placeholder="Search for word" />
+        <br />
+        <button ng-click="getDefinition()">Search</button>
+        <br />
+        <div ng-repeat="p in definition.partsOfSpeech">
+            <p style="font-weight: bold; margin-top: 30px">{{p.name}}</p>
+            <ul ng-repeat="d in p.definitions.definitions">
+                <li>{{d}}</li>
+            </ul>
+        </div>
+    </div>
 </div>

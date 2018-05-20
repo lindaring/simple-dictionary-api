@@ -1,7 +1,10 @@
 var app = angular.module('simpleApp', ['ngRoute']);
 
-app.config(function ($routeProvider, $locationProvider) {
-    $routeProvider.when('/', {templateUrl: 'partials/home.html'});
+app.config(function ($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'partials/home.html',
+        controller: 'wordController'
+    });
     $routeProvider.when('/error-404', {templateUrl: 'partials/error.html'});
     $routeProvider.otherwise({redirectTo: '/error-404'});
 });
