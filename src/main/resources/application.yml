@@ -3,8 +3,31 @@ server:
 
 simple:
   dictionary:
+    api:
+      id: abd32269
+      key: 02c6108e3e428c200357c398a6d0359c
     log:
       method:
-        enabled: true
+        enabled: false
       executionTime:
         enabled: true
+    clients:
+      dictionary:
+        url: https://od-api.oxforddictionaries.com:443/api/v1
+    messages:
+      word:
+        notFound: Eish...Askies, word not found.
+      cache:
+        namesNotFound: Eish...Askies, cache name(s) not found.
+        keysNotFound: Eish...Askies, cache key(s) not found.
+
+feign:
+  hystrix:
+    enabled: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE

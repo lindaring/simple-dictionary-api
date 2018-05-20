@@ -1,10 +1,16 @@
 package com.lindaring.dictionary.aspect;
 
+import com.lindaring.dictionary.properties.LogProperties;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -13,11 +19,8 @@ public class LogAspect {
 
     private static final Logger log = Logger.getLogger(LogAspect.class);
 
-    @Value("${simple.dictionary.log.method.enabled}")
-    private boolean logMethodEnabled;
-
-    @Value("${simple.dictionary.log.executionTime.enabled}")
-    private boolean logExecutionTimeEnabled;
+    @Autowired
+    private LogProperties logProperties;
 
     @Pointcut("@annotation(com.lindaring.dictionary.annotation.LogExecutionTime)")
     public void LogExecutionTime() {
@@ -29,7 +32,7 @@ public class LogAspect {
 
     @Around("LogExecutionTime()")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-        if (!logExecutionTimeEnabled)
+        if (!logProperties.getExecutionTime().isEnabled())
             return joinPoint.proceed();
 
         long start = System.currentTimeMillis();
@@ -45,7 +48,7 @@ public class LogAspect {
 
     @Before("logMethod()")
     public void logMethodEntry(JoinPoint joinPoint) {
-        if (!logMethodEnabled)
+        if (!logProperties.getMethod().isEnabled())
             return;
 
         String methodName = joinPoint.getSignature().getName();
@@ -57,7 +60,7 @@ public class LogAspect {
 
     @AfterReturning(value = "logMethod()", returning = "response")
     public void logMethodSuccess(JoinPoint joinPoint, Object response) {
-        if (!logMethodEnabled)
+        if (!logProperties.getMethod().isEnabled())
             return;
 
         String methodName = joinPoint.getSignature().getName();
@@ -67,7 +70,7 @@ public class LogAspect {
 
     @AfterThrowing(value = "logMethod()", throwing = "exception")
     public void logMethodFail(JoinPoint joinPoint, Throwable exception) {
-        if (!logMethodEnabled)
+        if (!logProperties.getMethod().isEnabled())
             return;
 
         String methodName = joinPoint.getSignature().getName();
