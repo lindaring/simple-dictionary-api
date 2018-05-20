@@ -30,9 +30,12 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Guess Word API")
-                .description("Guess Word API reference for developers")
-                .licenseUrl("license@lindaring.com").version("1.0").build();
+        return new ApiInfoBuilder()
+                .title("Simple Dictionary API")
+                .description("Simple Dictionary API reference for developers")
+                .licenseUrl("license@lindaring.com")
+                .version("1.0")
+                .build();
     }
 
 }

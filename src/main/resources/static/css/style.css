@@ -1,0 +1,33 @@
+#header-wrap,
+.error-wrap {
+    text-align: center;
+}
+h1 {
+    font-family: mistral, calibri, arial, serif;
+    font-size: 50px;
+    margin: 20px 0 10px 0;
+}
+h2 {
+    font-size: 40px;
+}
+
+#middle-wrap {
+    text-align: center;
+}
+input {
+    height: 30px;
+    width: 250px;
+    margin: 10px 0;
+    text-align: center;
+}
+button {
+    height: 30px;
+    width: 100px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+textarea {
+    width: 500px;
+    height: 500px;
+    margin: 5px 0;
+}
