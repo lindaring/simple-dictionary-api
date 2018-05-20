@@ -5,7 +5,7 @@ import com.lindaring.dictionary.model.SimpleCache;
 import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.properties.MessageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.guava.GuavaCache;
@@ -34,19 +34,33 @@ public class CacheService {
         return value;
     }
 
-    @CacheEvict(value = WORD_DEFINITION_CACHE, key = "#key")
-    public void remove(String key) {
-        return;
+    public void removeAll() {
+        Collection<String> names = cacheManager.getCacheNames();
+        names.forEach(this::removeCacheByName);
     }
 
-    @CacheEvict(value = WORD_DEFINITION_CACHE, allEntries = true)
-    public void removeAll () {
-        return;
+    public void removeCacheByName(String cacheName) {
+        GuavaCache cache = (GuavaCache) cacheManager.getCache(cacheName);
+        cache.clear();
+    }
+
+    public void removeCacheByKey(String cacheName, String key) {
+        GuavaCache cache = (GuavaCache) cacheManager.getCache(cacheName);
+        cache.evict(key);
     }
 
     @Cacheable(value = WORD_DEFINITION_CACHE, key = "#key")
     public Optional<Word> get(String key) {
         return Optional.empty();
+    }
+
+    public Word getValue(String cacheName, String key) throws CacheException {
+        GuavaCache cache = (GuavaCache) cacheManager.getCache(cacheName);
+        Cache.ValueWrapper value = cache.get(key);
+        if (value != null)
+            return (Word) value.get();
+        else
+            throw new CacheException(messages.getCache().getKeysNotFound());
     }
 
     public SimpleCache getKeys(String name) throws CacheException {
