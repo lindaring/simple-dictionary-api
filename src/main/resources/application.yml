@@ -18,6 +18,7 @@ simple:
       word:
         notFound: Eish...Askies, word not found.
       cache:
+        namesNotFound: Eish...Askies, cache names not found.
         keysNotFound: Eish...Askies, cache keys not found.
 
 feign:

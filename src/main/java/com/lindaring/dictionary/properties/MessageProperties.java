@@ -20,6 +20,7 @@ public class MessageProperties {
 
     @Data
     public static class Cache {
+        private String namesNotFound;
         private String keysNotFound;
     }
 }
