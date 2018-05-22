@@ -12,16 +12,17 @@
     <link href="css/materialize.css" rel="stylesheet" type="text/css"  media="screen,projection" />
 </head>
 <body class="grey lighten-3">
-    <nav class="red fixed-nav" role="navigation">
+    <nav class="red" role="navigation">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="#" class="brand-logo online-cancel">Simple Dictionary</a>
+            <a id="logo-container" href="#" class="brand-logo online-cancel hide-on-med-and-down">Simple Dictionary</a>
+            <a id="logo-image" href="#" class="brand-logo online-cancel hide-on-large-only"><img src="img/logo.png" /></a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="#">Spelling</a></li>
                 <li class="active"><a href="#">Dictionary</a></li>
                 <li><a href="#">Translation</a></li>
             </ul>
 
-            <ul id="nav-mobile" class="sidenav">
+            <ul id="nav-mobile" style="position: fi" class="sidenav">
                 <li class="active"><a href="#">Definition</a></li>
                 <li><a href="#">Spelling</a></li>
                 <li><a href="#">Translation</a></li>
@@ -29,6 +30,8 @@
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         </div>
     </nav>
+
+    <div class="vertical-spacer"></div>
 
     <div ng-view></div>
 
