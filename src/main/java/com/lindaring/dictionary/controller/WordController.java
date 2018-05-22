@@ -6,6 +6,7 @@ import com.lindaring.dictionary.exception.NoImplementationException;
 import com.lindaring.dictionary.exception.TechnicalException;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Word;
+import com.lindaring.dictionary.properties.MessageProperties;
 import com.lindaring.dictionary.service.DictionaryService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -24,12 +25,17 @@ public class WordController {
     @Autowired
     private DictionaryService dictionaryService;
 
+    private MessageProperties messages;
+
     @LogMethod
     @LogExecutionTime
     @RequestMapping(value="/{word}", method=RequestMethod.GET)
     @ApiOperation(notes="Get word definition", value="Get word definition")
     public ResponseEntity<Word> getDefinition(@ApiParam(value="Word to search", required=true) @PathVariable String word) throws WordNotFoundException, TechnicalException {
         try {
+            if (word.isEmpty()) {
+                throw new WordNotFoundException(messages.getWord().getWordNotProvided());
+            }
             Word meaning = dictionaryService.getWord(word);
             return new ResponseEntity<>(meaning, HttpStatus.OK);
 

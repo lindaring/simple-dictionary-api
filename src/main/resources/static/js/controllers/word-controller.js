@@ -13,23 +13,45 @@ app.controller('wordController', function ($scope, $timeout, $route, wordService
         definition: false,
         preloader: false
     };
+    $scope.year = 1999;
+    var duration = 5000;
 
     $scope.getDefinition = function () {
-        $scope.formEnabled.preloader = true;
+        if ($scope.search.word != null && $scope.search.word !== "") {
+            $scope.formEnabled.preloader = true;
 
-        $scope.definitionPromise = wordService.getDefinition($scope.search.word);
-        $scope.definitionPromise.then(function success(response) {
-            $scope.definition = response.data;
+            $scope.definitionPromise = wordService.getDefinition($scope.search.word);
+            $scope.definitionPromise.then(function success(response) {
+                $scope.definition = response.data;
 
-            $scope.formEnabled.definition = true;
-            $scope.formEnabled.preloader = false;
-        }).catch(function () {
-            console.log("Failed to get word definition.");
+                $scope.formEnabled.definition = true;
+                $scope.formEnabled.preloader = false;
+            }).catch(function (error) {
+                var message = error.data.message;
 
-            $scope.formEnabled.definition = false;
-            $scope.formEnabled.preloader = false;
-        });
+                if (error.status === 404) {
+                    M.toast({html: message, displayLength: duration});
+                    console.error("Word not found.");
+                } else {
+                    M.toast({html: message, displayLength: duration});
+                    console.error("Failed to get word definition.");
+                }
+
+                $scope.formEnabled.definition = false;
+                $scope.formEnabled.preloader = false;
+            });
+        } else {
+            M.toast({html: "Please provide word to search", displayLength: duration});
+        }
     };
 
-    //Todo - handle error - word not found - enable/disable form
+    $scope.getYear = function () {
+        $scope.year = 1999;
+    };
+
+    $scope.refresh = function () {
+        $scope.getYear();
+    };
+
+    $scope.refresh();
 });

@@ -16,6 +16,7 @@ public class MessageProperties {
     @Data
     public static class Word {
         private String notFound;
+        private String wordNotProvided;
     }
 
     @Data

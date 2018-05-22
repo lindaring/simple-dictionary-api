@@ -12,28 +12,43 @@
     <link href="css/materialize.css" rel="stylesheet" type="text/css"  media="screen,projection" />
 </head>
 <body class="grey lighten-3">
-    <nav class="red" role="navigation">
-        <div class="nav-wrapper container">
-            <a id="logo-container" href="#" class="brand-logo online-cancel hide-on-med-and-down">Simple Dictionary</a>
-            <a id="logo-image" href="#" class="brand-logo online-cancel hide-on-large-only"><img src="img/logo.png" /></a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">Spelling</a></li>
-                <li class="active"><a href="#">Dictionary</a></li>
-                <li><a href="#">Translation</a></li>
-            </ul>
+    <header>
+        <!-- Header -->
+        <nav class="red" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="#" class="brand-logo online-cancel hide-on-med-and-down">Simple Dictionary</a>
+                <a id="logo-image" href="#" class="brand-logo online-cancel hide-on-large-only"><img src="img/logo.png" /></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">Spelling</a></li>
+                    <li class="active"><a href="#">Dictionary</a></li>
+                    <li><a href="#">Translation</a></li>
+                </ul>
 
-            <ul id="nav-mobile" style="position: fi" class="sidenav">
-                <li class="active"><a href="#">Definition</a></li>
-                <li><a href="#">Spelling</a></li>
-                <li><a href="#">Translation</a></li>
-            </ul>
-            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" style="position: fi" class="sidenav">
+                    <li class="active"><a href="#">Definition</a></li>
+                    <li><a href="#">Spelling</a></li>
+                    <li><a href="#">Translation</a></li>
+                </ul>
+                <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Middle -->
+        <div class="vertical-spacer"></div>
+
+        <div ng-view></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer blue-grey darken-4 no-padding center-align">
+        <div class="footer-copyright">
+            <div class="container">
+                Copyright © {{year}} <a class="orange-text text-lighten-3" href="http://lindaring.com">Lindaring Studio Shack</a>
+            </div>
         </div>
-    </nav>
-
-    <div class="vertical-spacer"></div>
-
-    <div ng-view></div>
+    </footer>
 
     <!-- Libraries -->
     <script src="js/lib/angular.min.js"></script>

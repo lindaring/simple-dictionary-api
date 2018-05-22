@@ -16,10 +16,11 @@ simple:
         url: https://od-api.oxforddictionaries.com:443/api/v1
     messages:
       word:
-        notFound: Eish...Askies, word not found.
+        notFound: Eish...Askies, word not found
+        wordNotProvided: Please provide word for search
       cache:
-        namesNotFound: Eish...Askies, cache name(s) not found.
-        keysNotFound: Eish...Askies, cache key(s) not found.
+        namesNotFound: Eish...Askies, cache name(s) not found
+        keysNotFound: Eish...Askies, cache key(s) not found
 
 feign:
   hystrix:
