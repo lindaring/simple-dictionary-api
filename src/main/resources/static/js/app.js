@@ -11,6 +11,7 @@ app.config(function ($routeProvider) {
 
 app.constant('HOST', '');
 app.constant('WORD_ENDPOINT', '/simple-dictionary/v1/word');
+app.constant('UTIL_ENDPOINT', '/simple-dictionary/v1/util');
 
 function _(element) {
     return document.getElementById(element);

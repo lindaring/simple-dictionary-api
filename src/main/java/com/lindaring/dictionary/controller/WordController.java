@@ -25,6 +25,7 @@ public class WordController {
     @Autowired
     private DictionaryService dictionaryService;
 
+    @Autowired
     private MessageProperties messages;
 
     @LogMethod

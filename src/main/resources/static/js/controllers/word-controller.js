@@ -1,4 +1,4 @@
-app.controller('wordController', function ($scope, $timeout, $route, wordService) {
+app.controller('wordController', function ($scope, $timeout, $route, wordService, utilService) {
 
     $scope.search = {};
     $scope.search = {
@@ -13,7 +13,10 @@ app.controller('wordController', function ($scope, $timeout, $route, wordService
         definition: false,
         preloader: false
     };
-    $scope.year = 1999;
+    $scope.date = {};
+    $scope.date = {
+        year: 0
+    }
     var duration = 5000;
 
     $scope.getDefinition = function () {
@@ -46,7 +49,13 @@ app.controller('wordController', function ($scope, $timeout, $route, wordService
     };
 
     $scope.getYear = function () {
-        $scope.year = 1999;
+        $scope.currentPromise = utilService.getCurrentYear();
+        $scope.currentPromise.then(function success(response) {
+            $scope.date.year = response.data;
+
+        }).catch(function () {
+            $scope.date.year = 2018;
+        });
     };
 
     $scope.refresh = function () {

@@ -1,39 +1,41 @@
-<div class="row">
-    <div class="col offset-m3 m6 s12 center-align">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Dictionary</span>
-                <input class="center-align" type="text" ng-model="search.word" id="txtWord" placeholder="Search for word" />
-                <a class="waves-effect waves-light btn-large margin-top-15" ng-click="getDefinition()" ng-show="!formEnabled.preloader">Search</a>
-                <div class="preloader-wrapper active margin-top-15" ng-show="formEnabled.preloader">
-                    <div class="spinner-layer spinner-green-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
+<div ng-cloak="definitionPromise">
+    <div class="row">
+        <div class="col offset-m3 m6 s12 center-align">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Dictionary</span>
+                    <input class="center-align" type="text" ng-model="search.word" id="txtWord" placeholder="Search for word" />
+                    <a class="waves-effect waves-light btn-large margin-top-15" ng-click="getDefinition()" ng-show="!formEnabled.preloader">Search</a>
+                    <div class="preloader-wrapper active margin-top-15" ng-show="formEnabled.preloader">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row" ng-show="formEnabled.definition">
-    <div class="col offset-m3 m6 s12 center-align">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Definition</span>
-                <div ng-repeat="p in definition.partsOfSpeech">
-                    <h5>{{p.name}}</h5>
-                    <ul ng-repeat="d in p.definitions.definitions" class="magnify-text">
-                        <li>{{d}}</li>
-                    </ul>
-                    <br />
+    <div class="row" ng-show="formEnabled.definition">
+        <div class="col offset-m3 m6 s12 center-align">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Definition</span>
+                    <div ng-repeat="p in definition.partsOfSpeech">
+                        <h5>{{p.name}}</h5>
+                        <ul ng-repeat="d in p.definitions.definitions" class="magnify-text">
+                            <li>{{d}}</li>
+                        </ul>
+                        <br />
+                    </div>
                 </div>
             </div>
         </div>

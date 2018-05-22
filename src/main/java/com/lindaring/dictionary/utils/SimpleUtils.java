@@ -2,6 +2,7 @@ package com.lindaring.dictionary.utils;
 
 import com.lindaring.dictionary.annotation.LogMethod;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.util.StringUtils.isEmpty;
@@ -17,6 +18,11 @@ public class SimpleUtils {
                 }
             });
         }
+    }
+
+    @LogMethod
+    public static int getCurrentYear() {
+        return LocalDate.now().getYear();
     }
 
 }
