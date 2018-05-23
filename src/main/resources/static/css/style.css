@@ -21,6 +21,15 @@ main {
 .hide-overflow {
     overflow: hidden;
 }
+.hide-buttion {
+    background-color: Transparent;
+    border: none;
+    cursor: pointer;
+}
+.hide-buttion:hover, .hide-buttion:active, .hide-buttion:focus {
+    background-color: Transparent;
+    color: #26A69A;
+}
 @media only screen and (max-width: 993px) {
     #logo-image img {
         height: 64px;

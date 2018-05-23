@@ -1,4 +1,4 @@
-app.controller('wordController', function ($scope, $timeout, $route, wordService, utilService) {
+app.controller('wordController', function ($scope, $compile, $timeout, $route, wordService, utilService) {
 
     $scope.search = {};
     $scope.search = {
@@ -6,9 +6,10 @@ app.controller('wordController', function ($scope, $timeout, $route, wordService
     };
     $scope.definition = {};
     $scope.definition = {
-        partsOfSpeech: ["asdf", "adsfasdf"]
+        partsOfSpeech: [],
+        word: ""
     };
-    $scope.formEnabled = {}
+    $scope.formEnabled = {};
     $scope.formEnabled = {
         definition: false,
         preloader: false
@@ -16,7 +17,8 @@ app.controller('wordController', function ($scope, $timeout, $route, wordService
     $scope.date = {};
     $scope.date = {
         year: 0
-    }
+    };
+    $scope.searchHistory = [];
     var duration = 5000;
 
     $scope.getDefinition = function () {
@@ -26,6 +28,11 @@ app.controller('wordController', function ($scope, $timeout, $route, wordService
             $scope.definitionPromise = wordService.getDefinition($scope.search.word);
             $scope.definitionPromise.then(function success(response) {
                 $scope.definition = response.data;
+
+                if (!$scope.exists($scope.searchHistory, $scope.definition.word)) {
+                    $scope.addTag($scope.definition.word);
+                    $scope.searchHistory.push($scope.definition.word);
+                }
 
                 $scope.formEnabled.definition = true;
                 $scope.formEnabled.preloader = false;
@@ -48,6 +55,11 @@ app.controller('wordController', function ($scope, $timeout, $route, wordService
         }
     };
 
+    $scope.getDefinitionFromTag = function (word) {
+        $scope.search.word = word;
+        $scope.getDefinition();
+    };
+
     $scope.getYear = function () {
         $scope.currentPromise = utilService.getCurrentYear();
         $scope.currentPromise.then(function success(response) {
@@ -56,6 +68,20 @@ app.controller('wordController', function ($scope, $timeout, $route, wordService
         }).catch(function () {
             $scope.date.year = 2018;
         });
+    };
+
+    $scope.addTag = function (word) {
+        var btnhtml =   '<div class="chip">' +
+                            '<button class="hide-buttion" ng-click="getDefinitionFromTag(\''+word+'\')">' +
+                                word +
+                            '</button>' +
+                        '<i class="close material-icons">close</i></div>';
+        var temp = $compile(btnhtml)($scope);
+        $("#word-chips").append(temp);
+    };
+
+    $scope.exists = function (list, item) {
+        return (list.indexOf(item) !== -1);
     };
 
     $scope.refresh = function () {
