@@ -2,6 +2,7 @@ package com.lindaring.dictionary.controller;
 
 import com.lindaring.dictionary.annotation.LogExecutionTime;
 import com.lindaring.dictionary.annotation.LogMethod;
+import com.lindaring.dictionary.client.model.translation.Translation;
 import com.lindaring.dictionary.exception.NoImplementationException;
 import com.lindaring.dictionary.exception.TechnicalException;
 import com.lindaring.dictionary.exception.WordNotFoundException;
@@ -52,10 +53,23 @@ public class WordController {
     @LogExecutionTime
     @RequestMapping(value="/{word}/translate/{lang}", method=RequestMethod.GET)
     @ApiOperation(notes="Translate the word", value="Translate the word")
-    public int getTranslation(@ApiParam(value="Word to translate", required=true) @PathVariable String word,
-                              @ApiParam(value="Language", required=true) @PathVariable String lang) throws InterruptedException {
-        Thread.sleep(1000);
-        return 100;
+    public ResponseEntity<Translation> getTranslation(@ApiParam(value="Word to translate", required=true) @PathVariable String word,
+                              @ApiParam(value="Language", required=true) @PathVariable String lang) throws WordNotFoundException, TechnicalException {
+        try {
+            if (word.isEmpty()) {
+                throw new WordNotFoundException(messages.getWord().getWordNotProvided());
+            } else if (lang.isEmpty()) {
+                throw new WordNotFoundException(messages.getWord().getTargetLangNotProvided());
+            }
+            Translation translation = dictionaryService.getTranslation(word);
+            return new ResponseEntity<>(translation, HttpStatus.OK);
+
+        } catch (WordNotFoundException e) {
+            throw e;
+
+        } catch (Exception e) {
+            throw new TechnicalException();
+        }
     }
 
     @LogMethod

@@ -7,6 +7,7 @@ import com.lindaring.dictionary.client.model.meaning.LexicalEntry;
 import com.lindaring.dictionary.client.model.meaning.Meaning;
 import com.lindaring.dictionary.client.model.meaning.Result;
 import com.lindaring.dictionary.client.model.meaning.Sense;
+import com.lindaring.dictionary.client.model.translation.Translation;
 import com.lindaring.dictionary.enumerator.Languages;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Definitions;
@@ -91,6 +92,12 @@ public class DictionaryService {
         List<String> list = new ArrayList<>();
         popMeaning.forEach(x -> SimpleUtils.addAllNotNull(list, x.getDefinitions()));
         return new Definitions(list);
+    }
+
+    @LogMethod
+    public Translation getTranslation(String word) {
+        Translation translation = dictionaryClientService.getTranslation(Languages.getId(Languages.ENGLISH), word, Languages.getId(Languages.ZULU));
+        return translation;
     }
 
 }

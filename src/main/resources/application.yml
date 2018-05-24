@@ -18,6 +18,8 @@ simple:
       word:
         notFound: Eish...Askies, word not found
         wordNotProvided: Please provide word for search
+        sourceLangNotProvided: Please provide the source language
+        targetLangNotProvided: Please provide the target language
       cache:
         namesNotFound: Eish...Askies, cache name(s) not found
         keysNotFound: Eish...Askies, cache key(s) not found
@@ -32,3 +34,6 @@ hystrix:
       execution:
         isolation:
           strategy: SEMAPHORE
+
+logging:
+  level: error

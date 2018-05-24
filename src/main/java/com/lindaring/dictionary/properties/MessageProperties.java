@@ -17,6 +17,8 @@ public class MessageProperties {
     public static class Word {
         private String notFound;
         private String wordNotProvided;
+        private String sourceLangNotProvided;
+        private String targetLangNotProvided;
     }
 
     @Data
