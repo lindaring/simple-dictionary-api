@@ -71,13 +71,17 @@ app.controller('wordController', function ($scope, $compile, $timeout, $route, w
     };
 
     $scope.addTag = function (word) {
-        var btnhtml =   '<div class="chip">' +
+        var btnhtml = '<div class="chip">' +
                             '<button class="hide-buttion" ng-click="getDefinitionFromTag(\''+word+'\')">' +
                                 word +
                             '</button>' +
-                        '<i class="close material-icons">close</i></div>';
+                        '<i class="close material-icons" ng-click="removeFromList(\''+word+'\')">close</i></div>';
         var temp = $compile(btnhtml)($scope);
         $("#word-chips").append(temp);
+    };
+
+    $scope.removeFromList = function (item) {
+        $scope.searchHistory.splice($scope.searchHistory.indexOf(item), 1);
     };
 
     $scope.exists = function (list, item) {
