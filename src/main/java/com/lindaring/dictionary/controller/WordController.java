@@ -2,13 +2,13 @@ package com.lindaring.dictionary.controller;
 
 import com.lindaring.dictionary.annotation.LogExecutionTime;
 import com.lindaring.dictionary.annotation.LogMethod;
-import com.lindaring.dictionary.client.model.translation.Translation;
 import com.lindaring.dictionary.exception.NoImplementationException;
 import com.lindaring.dictionary.exception.TechnicalException;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.properties.MessageProperties;
 import com.lindaring.dictionary.service.DictionaryService;
+import com.lindaring.dictionary.service.TranslationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,9 @@ public class WordController {
 
     @Autowired
     private DictionaryService dictionaryService;
+
+    @Autowired
+    private TranslationService translationService;
 
     @Autowired
     private MessageProperties messages;
@@ -53,7 +56,7 @@ public class WordController {
     @LogExecutionTime
     @RequestMapping(value="/{word}/translate/{lang}", method=RequestMethod.GET)
     @ApiOperation(notes="Translate the word", value="Translate the word")
-    public ResponseEntity<Translation> getTranslation(@ApiParam(value="Word to translate", required=true) @PathVariable String word,
+    public ResponseEntity<Word> getTranslation(@ApiParam(value="Word to translate", required=true) @PathVariable String word,
                               @ApiParam(value="Language", required=true) @PathVariable String lang) throws WordNotFoundException, TechnicalException {
         try {
             if (word.isEmpty()) {
@@ -61,7 +64,7 @@ public class WordController {
             } else if (lang.isEmpty()) {
                 throw new WordNotFoundException(messages.getWord().getTargetLangNotProvided());
             }
-            Translation translation = dictionaryService.getTranslation(word);
+            Word translation = translationService.getTranslation(word);
             return new ResponseEntity<>(translation, HttpStatus.OK);
 
         } catch (WordNotFoundException e) {

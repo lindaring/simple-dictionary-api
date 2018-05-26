@@ -10,8 +10,14 @@ import org.springframework.stereotype.Component;
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "simple.dictionary.messages")
 public class MessageProperties {
+    private Translation translation = new Translation();
     private Word word = new Word();
     private Cache cache = new Cache();
+
+    @Data
+    public static class Translation {
+        private String notFound;
+    }
 
     @Data
     public static class Word {

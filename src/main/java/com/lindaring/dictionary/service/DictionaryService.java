@@ -7,7 +7,6 @@ import com.lindaring.dictionary.client.model.meaning.LexicalEntry;
 import com.lindaring.dictionary.client.model.meaning.Meaning;
 import com.lindaring.dictionary.client.model.meaning.Result;
 import com.lindaring.dictionary.client.model.meaning.Sense;
-import com.lindaring.dictionary.client.model.translation.Translation;
 import com.lindaring.dictionary.enumerator.Languages;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Definitions;
@@ -16,7 +15,6 @@ import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.properties.MessageProperties;
 import com.lindaring.dictionary.utils.SimpleUtils;
 import feign.FeignException;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,8 +26,6 @@ import java.util.Optional;
 
 @Service
 public class DictionaryService {
-
-    private static final Logger log = Logger.getLogger(LogAspect.class);
 
     @Autowired
     private DictionaryClientService dictionaryClientService;
@@ -92,12 +88,6 @@ public class DictionaryService {
         List<String> list = new ArrayList<>();
         popMeaning.forEach(x -> SimpleUtils.addAllNotNull(list, x.getDefinitions()));
         return new Definitions(list);
-    }
-
-    @LogMethod
-    public Translation getTranslation(String word) {
-        Translation translation = dictionaryClientService.getTranslation(Languages.getId(Languages.ENGLISH), word, Languages.getId(Languages.ZULU));
-        return translation;
     }
 
 }
