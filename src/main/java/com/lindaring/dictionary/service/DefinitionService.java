@@ -31,7 +31,7 @@ public class DefinitionService {
     private DictionaryClientService dictionaryClientService;
 
     @Autowired
-    private DefinitionCache cacheService;
+    private DefinitionCache definitionCache;
 
     @Autowired
     private MessageProperties messages;
@@ -43,14 +43,14 @@ public class DefinitionService {
      */
     @LogMethod
     public Word getWord(String word) throws WordNotFoundException {
-        Optional<Word> optionalResponse = cacheService.get(word.toLowerCase());
+        Optional<Word> optionalResponse = definitionCache.get(word.toLowerCase());
 
         if (optionalResponse.isPresent())
             return optionalResponse.get();
 
         try {
             Word response = getWordFromService(word);
-            cacheService.cache(response.getWord(), response);
+            definitionCache.cache(response.getWord(), response);
             return response;
 
         } catch (FeignException e) {

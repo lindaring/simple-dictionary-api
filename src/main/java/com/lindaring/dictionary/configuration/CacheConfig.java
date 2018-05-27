@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheConfig {
 
     public static final String WORD_DEFINITION_CACHE = "WORD_DEFINITION_CACHE";
+    public static final String WORD_TRANSLATION_CACHE = "WORD_TRANSLATION_CACHE";
 
     @Bean
     public GuavaCacheManager cacheManager() {
@@ -20,7 +21,7 @@ public class CacheConfig {
                 .maximumSize(100)
                 .expireAfterWrite(7, TimeUnit.DAYS);
 
-        GuavaCacheManager cacheManager = new GuavaCacheManager(WORD_DEFINITION_CACHE);
+        GuavaCacheManager cacheManager = new GuavaCacheManager(WORD_DEFINITION_CACHE, WORD_TRANSLATION_CACHE);
         cacheManager.setCacheBuilder(cacheBuilder);
 
         return cacheManager;

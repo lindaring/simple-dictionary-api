@@ -34,6 +34,11 @@ public class SimpleBaseCache {
         cache.clear();
     }
 
+    public void removeCacheByKey(String cacheName, String key) {
+        GuavaCache cache = (GuavaCache) cacheManager.getCache(cacheName);
+        cache.evict(key);
+    }
+
     public Word getValue(String cacheName, String key) throws CacheException {
         GuavaCache cache = (GuavaCache) cacheManager.getCache(cacheName);
         Cache.ValueWrapper value = cache.get(key);

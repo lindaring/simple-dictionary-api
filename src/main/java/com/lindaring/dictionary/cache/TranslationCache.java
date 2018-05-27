@@ -7,17 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.lindaring.dictionary.configuration.CacheConfig.WORD_DEFINITION_CACHE;
+import static com.lindaring.dictionary.configuration.CacheConfig.WORD_TRANSLATION_CACHE;
 
 @Service
-public class DefinitionCache extends SimpleBaseCache {
+public class TranslationCache extends SimpleBaseCache {
 
-    @CachePut(value = WORD_DEFINITION_CACHE, key = "#key")
+    @CachePut(value = WORD_TRANSLATION_CACHE, key = "#key")
     public Word cache(String key, Word value) {
         return value;
     }
 
-    @Cacheable(value = WORD_DEFINITION_CACHE, key = "#key")
+    @Cacheable(value = WORD_TRANSLATION_CACHE, key = "#key")
     public Optional<Word> get(String key) {
         return Optional.empty();
     }

@@ -1,6 +1,7 @@
 package com.lindaring.dictionary.service;
 
 import com.lindaring.dictionary.annotation.LogMethod;
+import com.lindaring.dictionary.cache.TranslationCache;
 import com.lindaring.dictionary.client.DictionaryClientService;
 import com.lindaring.dictionary.client.model.translation.LexicalEntry;
 import com.lindaring.dictionary.client.model.translation.Result;
@@ -13,7 +14,9 @@ import com.lindaring.dictionary.model.Definitions;
 import com.lindaring.dictionary.model.PartsOfSpeech;
 import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.properties.MessageProperties;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,11 +32,29 @@ public class TranslationService {
     private DictionaryClientService dictionaryClientService;
 
     @Autowired
+    private TranslationCache translationCache;
+
+    @Autowired
     private MessageProperties messages;
 
     @LogMethod
     public Word getTranslation(String word) throws WordNotFoundException {
-        return getTranslationFromService(word);
+        Optional<Word> optionalResponse = translationCache.get(word.toLowerCase());
+
+        if (optionalResponse.isPresent())
+            return optionalResponse.get();
+
+        try {
+            Word response = getTranslationFromService(word);
+            translationCache.cache(response.getWord(), response);
+            return response;
+
+        } catch (FeignException e) {
+            if (e.status() == HttpStatus.NOT_FOUND.value())
+                throw new WordNotFoundException(messages.getWord().getNotFound());
+
+            throw e;
+        }
     }
 
     @LogMethod
@@ -74,8 +95,4 @@ public class TranslationService {
         return list;
     }
 
-    //TODO - Implement cache for translation
-    //TODO - Put dictionary cache inside dictionary service
-    //TODO - Refactor service code
-    //TODO - Refactor dictionary models
 }
