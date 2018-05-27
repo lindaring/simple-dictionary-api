@@ -15,13 +15,15 @@ simple:
       dictionary:
         url: https://od-api.oxforddictionaries.com:443/api/v1
     messages:
+      language:
+        notSupported: language not supported
+        sourceNotProvided: Please provide the source language
+        targetNotProvided: Please provide the target language
       translation:
         notFound: Eish...Askies, translation not found
       word:
         notFound: Eish...Askies, word not found
         wordNotProvided: Please provide word for search
-        sourceLangNotProvided: Please provide the source language
-        targetLangNotProvided: Please provide the target language
       cache:
         namesNotFound: Eish...Askies, cache name(s) not found
         keysNotFound: Eish...Askies, cache key(s) not found

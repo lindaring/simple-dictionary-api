@@ -25,4 +25,10 @@ public class SimpleUtils {
         return LocalDate.now().getYear();
     }
 
+
+    @LogMethod
+    public static String ucWord(String word) {
+        return (word.length() > 0) ? (word.substring(0, 1).toUpperCase() + word.substring(1)) : word.toUpperCase();
+    }
+
 }

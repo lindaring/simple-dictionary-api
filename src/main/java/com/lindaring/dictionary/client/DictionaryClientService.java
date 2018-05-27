@@ -59,8 +59,8 @@ public class DictionaryClientService {
         @RequestMapping(method = RequestMethod.GET, value = "/entries/{sourceLang}/{word}/translations={targetLang}")
         Translation getTranslation(@RequestHeader("app_id") String appId,
                            @RequestHeader("app_key") String appKey,
-                           @RequestParam("sourceLang") String sourceLang,
                            @RequestParam("word") String word,
+                           @RequestParam("sourceLang") String sourceLang,
                            @RequestParam("targetLang") String targetLang);
 
     }

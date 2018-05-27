@@ -8,7 +8,7 @@ import com.lindaring.dictionary.client.model.translation.Result;
 import com.lindaring.dictionary.client.model.translation.Sense;
 import com.lindaring.dictionary.client.model.translation.Translation;
 import com.lindaring.dictionary.client.model.translation.Translation__;
-import com.lindaring.dictionary.enumerator.Languages;
+import com.lindaring.dictionary.enumerator.Language;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Definitions;
 import com.lindaring.dictionary.model.PartsOfSpeech;
@@ -38,15 +38,15 @@ public class TranslationService {
     private MessageProperties messages;
 
     @LogMethod
-    public Word getTranslation(String word) throws WordNotFoundException {
-        Optional<Word> optionalResponse = translationCache.get(word.toLowerCase());
+    public Word getTranslation(String word, Language source, Language target) throws WordNotFoundException {
+        Optional<Word> optionalResponse = translationCache.get(String.format("%s_%s", word.toLowerCase(), target));
 
         if (optionalResponse.isPresent())
             return optionalResponse.get();
 
         try {
-            Word response = getTranslationFromService(word);
-            translationCache.cache(response.getWord(), response);
+            Word response = getTranslationFromService(word, source, target);
+            translationCache.cache(String.format("%s_%s", response.getWord().toLowerCase(), target), response);
             return response;
 
         } catch (FeignException e) {
@@ -58,8 +58,8 @@ public class TranslationService {
     }
 
     @LogMethod
-    private Word getTranslationFromService(String word) throws WordNotFoundException {
-        Translation translation = dictionaryClientService.getTranslation(Languages.getId(Languages.ENGLISH), word, Languages.getId(Languages.ZULU));
+    private Word getTranslationFromService(String word, Language source, Language target) throws WordNotFoundException {
+        Translation translation = dictionaryClientService.getTranslation(word, Language.getId(source), Language.getId(target));
         Optional<Result> result = translation.getResults().stream().findFirst();
 
         if (result.isPresent())

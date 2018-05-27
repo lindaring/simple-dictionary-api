@@ -7,7 +7,7 @@ import com.lindaring.dictionary.client.model.meaning.LexicalEntry;
 import com.lindaring.dictionary.client.model.meaning.Meaning;
 import com.lindaring.dictionary.client.model.meaning.Result;
 import com.lindaring.dictionary.client.model.meaning.Sense;
-import com.lindaring.dictionary.enumerator.Languages;
+import com.lindaring.dictionary.enumerator.Language;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Definitions;
 import com.lindaring.dictionary.model.PartsOfSpeech;
@@ -63,7 +63,7 @@ public class DefinitionService {
 
     @LogMethod
     private Word getWordFromService(String word) throws WordNotFoundException {
-        Meaning meaning = dictionaryClientService.getMeaning(Languages.getId(Languages.ENGLISH), word);
+        Meaning meaning = dictionaryClientService.getMeaning(Language.getId(Language.ENGLISH), word);
         Optional<Result> result = meaning.getResults().stream().findFirst();
 
         if (result.isPresent())

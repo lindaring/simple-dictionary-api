@@ -10,13 +10,21 @@ import org.springframework.stereotype.Component;
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "simple.dictionary.messages")
 public class MessageProperties {
+    private Language language = new Language();
     private Translation translation = new Translation();
     private Word word = new Word();
     private Cache cache = new Cache();
 
     @Data
+    public static class Language {
+        private String notSupported;
+    }
+
+    @Data
     public static class Translation {
         private String notFound;
+        private String sourceNotProvided;
+        private String targetNotProvided;
     }
 
     @Data
@@ -24,7 +32,6 @@ public class MessageProperties {
         private String notFound;
         private String wordNotProvided;
         private String sourceLangNotProvided;
-        private String targetLangNotProvided;
     }
 
     @Data
