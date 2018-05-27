@@ -7,7 +7,7 @@ import com.lindaring.dictionary.exception.TechnicalException;
 import com.lindaring.dictionary.exception.WordNotFoundException;
 import com.lindaring.dictionary.model.Word;
 import com.lindaring.dictionary.properties.MessageProperties;
-import com.lindaring.dictionary.service.DictionaryService;
+import com.lindaring.dictionary.service.DefinitionService;
 import com.lindaring.dictionary.service.TranslationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WordController {
 
     @Autowired
-    private DictionaryService dictionaryService;
+    private DefinitionService dictionaryService;
 
     @Autowired
     private TranslationService translationService;

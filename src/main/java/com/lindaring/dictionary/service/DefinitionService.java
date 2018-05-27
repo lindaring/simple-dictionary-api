@@ -1,7 +1,7 @@
 package com.lindaring.dictionary.service;
 
 import com.lindaring.dictionary.annotation.LogMethod;
-import com.lindaring.dictionary.aspect.LogAspect;
+import com.lindaring.dictionary.cache.DefinitionCache;
 import com.lindaring.dictionary.client.DictionaryClientService;
 import com.lindaring.dictionary.client.model.meaning.LexicalEntry;
 import com.lindaring.dictionary.client.model.meaning.Meaning;
@@ -25,13 +25,13 @@ import java.util.Optional;
 
 
 @Service
-public class DictionaryService {
+public class DefinitionService {
 
     @Autowired
     private DictionaryClientService dictionaryClientService;
 
     @Autowired
-    private CacheService cacheService;
+    private DefinitionCache cacheService;
 
     @Autowired
     private MessageProperties messages;

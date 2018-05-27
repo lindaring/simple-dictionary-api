@@ -6,7 +6,7 @@ import com.lindaring.dictionary.exception.CacheException;
 import com.lindaring.dictionary.exception.TechnicalException;
 import com.lindaring.dictionary.model.SimpleCache;
 import com.lindaring.dictionary.model.Word;
-import com.lindaring.dictionary.service.CacheService;
+import com.lindaring.dictionary.cache.DefinitionCache;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CacheController {
 
     @Autowired
-    private CacheService cacheService;
+    private DefinitionCache cacheService;
 
     @LogMethod
     @LogExecutionTime
