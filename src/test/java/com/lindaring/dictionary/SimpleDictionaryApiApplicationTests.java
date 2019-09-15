@@ -1,4 +1,4 @@
-package com.lindaring.guess;
+package com.lindaring.dictionary;
 
 import org.junit.Ignore;
 import org.junit.Test;
